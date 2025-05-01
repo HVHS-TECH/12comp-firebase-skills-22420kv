@@ -12,10 +12,11 @@ console.log('%c main.mjs',
 // Import all external constants & functions required
 /**************************************************************/
 // Import all the constants & functions required from fb_io module
-import { fb_initialise }
+import { fb_initialise, fb_authenticate, fb_detectLoginChange }
     from './fb_io.mjs';
     window.fb_initialise   = fb_initialise;
- 
+    window.fb_authenticate   = fb_authenticate;
+    window.fb_detectLoginChange = fb_detectLoginChange;
 
 /**************************************************************/
 // index.html main code
@@ -36,18 +37,6 @@ import { fb_initialise }
 // draw()
 /**************************************************************/
 
-
-/************************************************************ */
-// Task 03
-// initialiseFirebase()
-// Called by t03: initialise firebase Button
-// Input: n/a
-// Returb: n/a
-/************************************************************ */
-function initialiseFirebase() {
-    console.log('%c initialiseFirebase() : ',
-        'color: red; background-color: white');
-}
 
 /**************************************************************/
 //   END OF CODE
