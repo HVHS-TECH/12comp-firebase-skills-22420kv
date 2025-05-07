@@ -32,7 +32,7 @@ import { signOut }
 
 import { ref, set }
  from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-
+ 
 /**************************************************************/
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
@@ -165,10 +165,12 @@ function fb_writeRecord() {
         'color: ' + COL_C + '; background-color: orange'
     );
 
-    const ref = ref(FB_GAMEDB, fb_writeRecord());
-    set(ref, data-to-write).then(() => {                  //BUSY HERE
+    const writeRecord = ref(FB_GAMEDB, 'House/People');
+    set(writeRecord, '{Pets: 1, Plants: 5}').then(() => {  
+        console.log('successfull write');
         //✅ Code for a successful write goes here
     }).catch((error) => {
+        console.log('Failed write');
         //❌ Code for a write error goes here
     });
 }
