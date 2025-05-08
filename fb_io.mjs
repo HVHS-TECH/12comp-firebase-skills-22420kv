@@ -32,6 +32,12 @@ import { signOut }
 
 import { ref, set }
  from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+import { get }
+ from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+import { update }
+ from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
  
 /**************************************************************/
 // EXPORT FUNCTIONS
@@ -164,13 +170,13 @@ function fb_writeRecord() {
     console.log('%c fb_writeRecord(): ',
         'color: ' + COL_C + '; background-color: orange'
     );
-
+var data_to_write = {Pets: 1, Plants: 5}
     const writeRecord = ref(FB_GAMEDB, 'House/People');
-    set(writeRecord, '{Pets: 1, Plants: 5}').then(() => {  
+    set(writeRecord, data_to_write).then(() => {  
         console.log('successfull write');
         //✅ Code for a successful write goes here
     }).catch((error) => {
-        console.log('Failed write');
+        console.log(error);
         //❌ Code for a write error goes here
     });
 }
@@ -186,6 +192,21 @@ function fb_readRecord() {
     console.log('%c fb_readRecord(): ',
         'color: ' + COL_C + '; background-color: green'
     );
+
+    const dbReference= ref(FB_GAMEDB, 'House/People/Pets');
+    get(dbReference).then((snapshot) => {
+        var fb_data = snapshot.val();
+        if (fb_data != null) {
+            console.log(fb_data);
+            //✅ Code for a successful read goes here
+        } else {
+            console.log('No record found');
+            //✅ Code for no record found goes here
+        }
+    }).catch((error) => {
+        console.log('failed read');
+        //❌ Code for a read error goes here
+    });
 }
 
 /***********************************/
@@ -199,6 +220,22 @@ function fb_readAll() {
     console.log('%c fb_readAll(): ',
         'color: ' + COL_C + '; background-color: black'
     );
+
+    const dbReference= ref(FB_GAMEDB, 'House/People');
+    get(dbReference).then((snapshot) => {
+        var fb_data = snapshot.val();
+        if (fb_data != null) {
+            console.log(fb_data);
+            //✅ Code for a successful read all goes here
+        } else {
+            console.log('No record found');
+            //✅ Code for no record found goes here
+        }
+    }).catch((error) => {
+        console.log('failed read');
+        //❌ Code for a read all error goes here
+
+    });
 }
 
 /***********************************/
@@ -212,6 +249,16 @@ function fb_updateRecord() {
     console.log('%c fb_updateRecord(): ',
         'color: ' + COL_C + '; background-color: grey'
     );
+
+    var _data = {Pets: 2}
+    const dbReference= ref(FB_GAMEDB, 'House/People');
+    update(dbReference, _data).then(() => {
+        console.log(_data);
+        //✅ Code for a successful update goes here
+    }).catch((error) => {
+        console.log('failed upate');
+        //❌ Code for a update error goes here
+    });
 }
 
 /***********************************/
