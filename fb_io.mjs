@@ -38,13 +38,16 @@ import { get }
 
 import { update }
  from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+import { query, orderByChild, limitToFirst }
+ from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
  
 /**************************************************************/
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
 export { 
-    fb_initialise, fb_authenticate, fb_detectLoginChange, fb_logout, fb_writeRecord, fb_readRecord, fb_readAll, fb_updateRecord, fb_sortedRead, };
+    fb_initialise, fb_authenticate, fb_detectLoginChange, fb_logout, fb_writeRecord, fb_readRecord, fb_readAll, fb_updateRecord, fb_sortedRead, fb_entries};
     const FB_GAMECONFIG = {
         apiKey: "AIzaSyCn36qBrPRutqLXCYIyzkyjMQRiYyhRC2Q",
         authDomain: "comp-2025-kyla-van-weele.firebaseapp.com",
@@ -272,6 +275,49 @@ function fb_sortedRead() {
     console.log('%c fb_sortedRead(): ',
         'color: ' + COL_C + '; background-color: skyBlue'
     );
+
+    var sortKey = "Objects";
+    const dbReference= query(ref(FB_GAMEDB, 'House/People'), orderByChild(sortKey), limitToFirst(2));
+    get(dbReference).then((snapshot) => {
+        var fb_data = snapshot.val();
+      if (fb_data != null) {
+        console.log('successful sorted read :D');
+           //✅ Code for a successful sorted read goes here
+        } else {
+            console.log('no record found')
+           //✅ Code for no record found goes here
+        }
+    }).catch((error) => {
+        console.log('failed sorted read');
+        //❌ Code for a sorted read error goes here
+    });
+
+    get(dbReference).then((objectDataSnapshot) => {
+        objectDataSnapshot.forEach(function (userObjectSnapshot) {
+            var obj = userObjectSnapshot.val();
+            console.log(obj);
+        });
+    });
+}
+
+/*********************************/
+// fb_entries()
+// Called by entries Button
+// adds 100 random entries
+/*********************************/
+function fb_entries() {
+    console.log('%c fb_entries(): ',
+        'color: ' + COL_C + '; background-color: lightGreen'
+    );
+    var _data = {Pets: 2}
+    const dbReference= ref(FB_GAMEDB, 'House/People');
+    update(dbReference, _data).then(() => {
+        console.log(_data);
+        //✅ Code for a successful update goes here
+    }).catch((error) => {
+        console.log('failed upate');
+        //❌ Code for a update error goes here
+    });
 }
 
 
