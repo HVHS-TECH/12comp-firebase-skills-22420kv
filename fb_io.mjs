@@ -47,7 +47,7 @@ import { query, orderByChild, limitToFirst }
 // List all the functions called by code or html outside of this module
 /**************************************************************/
 export { 
-    fb_initialise, fb_authenticate, fb_detectLoginChange, fb_logout, fb_writeRecord, fb_readRecord, fb_readAll, fb_updateRecord, fb_sortedRead, fb_entries};
+    fb_initialise, fb_authenticate, fb_detectLoginChange, fb_logout, fb_writeRecord, fb_readRecord, fb_readAll, fb_updateRecord, fb_sortedRead, fb_wreckHavock };
     const FB_GAMECONFIG = {
         apiKey: "AIzaSyCn36qBrPRutqLXCYIyzkyjMQRiYyhRC2Q",
         authDomain: "comp-2025-kyla-van-weele.firebaseapp.com",
@@ -221,7 +221,7 @@ function fb_readRecord() {
 /***********************************/
 function fb_readAll() {
     console.log('%c fb_readAll(): ',
-        'color: ' + COL_C + '; background-color: black'
+        'color: ' + COL_C + '; background-color: lightgrey'
     );
 
     const dbReference= ref(FB_GAMEDB, 'House/People');
@@ -300,24 +300,21 @@ function fb_sortedRead() {
     });
 }
 
-/*********************************/
-// fb_entries()
-// Called by entries Button
-// adds 100 random entries
-/*********************************/
-function fb_entries() {
-    console.log('%c fb_entries(): ',
-        'color: ' + COL_C + '; background-color: lightGreen'
+function fb_wreckHavock() {
+    console.log('%c fb_wreckHavock(): ',
+        'color: ' + COL_C + '; background-color: black'
     );
-    var _data = {Pets: 2}
-    const dbReference= ref(FB_GAMEDB, 'House/People');
-    update(dbReference, _data).then(() => {
-        console.log(_data);
-        //✅ Code for a successful update goes here
-    }).catch((error) => {
-        console.log('failed upate');
-        //❌ Code for a update error goes here
-    });
+
+    const FB_CONFIG = {
+        apiKey: "AIzaSyAC9lbREKwJJ95pZUJ7Wy3hI_QfivE2a34",
+        authDomain: "comp-firebaseskills.firebaseapp.com",
+        databaseURL: "https://comp-firebaseskills-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "comp-firebaseskills",
+        storageBucket: "comp-firebaseskills.firebasestorage.app",
+        messagingSenderId: "634491601796",
+        appId: "1:634491601796:web:1c48be8af741f25bd353d1"
+    };   
+    
 }
 
 
