@@ -41,13 +41,16 @@ import { update }
 
 import { query, orderByChild, limitToFirst }
  from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+import { onValue }
+ from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
  
 /**************************************************************/
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
 export { 
-    fb_initialise, fb_authenticate, fb_detectLoginChange, fb_logout, fb_writeRecord, fb_readRecord, fb_readAll, fb_updateRecord, fb_sortedRead, fb_wreckHavock };
+    fb_initialise, fb_authenticate, fb_detectLoginChange, fb_logout, fb_writeRecord, fb_readRecord, fb_readAll, fb_updateRecord, fb_sortedRead, fb_wreckHavock, fb_listenForChanges };
     const FB_GAMECONFIG = {
         apiKey: "AIzaSyCn36qBrPRutqLXCYIyzkyjMQRiYyhRC2Q",
         authDomain: "comp-2025-kyla-van-weele.firebaseapp.com",
@@ -313,8 +316,33 @@ function fb_wreckHavock() {
         storageBucket: "comp-firebaseskills.firebasestorage.app",
         messagingSenderId: "634491601796",
         appId: "1:634491601796:web:1c48be8af741f25bd353d1"
-    };   
+    };    ///NOT COMPLETE
     
+}
+
+function fb_listenForChanges() {
+    console.log('%c fb_listenForChanges(): ',
+        'color: ' + COL_C + '; background-color: lightgreen'
+    );
+
+    const dbReference = ref(FB_GAMEDB, 'House/People');
+    console.log(FB_GAMEDB);
+    console.log(dbReference);
+    onValue(dbReference)
+    .then((snapshot) => {
+        console.log("Read done")
+       /* var fb_data = snapshot.val();
+        if (fb_data != null) {
+            console.log('successful read');
+            //✅ Code for a successful read goes here
+        } else {
+            console.log('no record found');
+            //✅ Code for no record found goes here
+        }*/
+    }).catch((error) => {
+        console.log('failed read');
+        //❌ Code for a read error goes here
+    });
 }
 
 
