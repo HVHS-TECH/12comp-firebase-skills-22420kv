@@ -44,13 +44,17 @@ import { query, orderByChild, limitToFirst }
 
 import { onValue }
  from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+import { remove }
+ from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
  
 /**************************************************************/
 // EXPORT FUNCTIONS
 // List all the functions called by code or html outside of this module
 /**************************************************************/
 export { 
-    fb_initialise, fb_authenticate, fb_detectLoginChange, fb_logout, fb_writeRecord, fb_readRecord, fb_readAll, fb_updateRecord, fb_sortedRead, fb_wreckHavock, fb_listenForChanges };
+    fb_initialise, fb_authenticate, fb_detectLoginChange, fb_logout, fb_writeRecord, fb_readRecord, fb_readAll, fb_updateRecord,
+    fb_sortedRead, fb_wreckHavock, fb_listenForChanges, fb_deleteRecord };
     const FB_GAMECONFIG = {
         apiKey: "AIzaSyCn36qBrPRutqLXCYIyzkyjMQRiYyhRC2Q",
         authDomain: "comp-2025-kyla-van-weele.firebaseapp.com",
@@ -326,22 +330,30 @@ function fb_listenForChanges() {
     );
 
     const dbReference = ref(FB_GAMEDB, 'House/People');
-    console.log(FB_GAMEDB);
-    console.log(dbReference);
-    onValue(dbReference)
-    .then((snapshot) => {
-        console.log("Read done")
-       /* var fb_data = snapshot.val();
+    onValue(dbReference, (snapshot) => {
+        var fb_data = snapshot.val();
         if (fb_data != null) {
             console.log('successful read');
             //✅ Code for a successful read goes here
         } else {
             console.log('no record found');
             //✅ Code for no record found goes here
-        }*/
+        }
+    });
+}
+
+function fb_deleteRecord() {
+    console.log('%c fb_deleteRecord(): ',
+        'color: ' + COL_C + '; background-color: lightpink'
+    );
+
+    const dbReference= ref(FB_GAMEDB, 'House/People/Plants');
+    remove(dbReference).then(() => {
+        console.log('successful delete');
+        //✅ Code for a successful delete goes here
     }).catch((error) => {
-        console.log('failed read');
-        //❌ Code for a read error goes here
+        console.log('delete error');
+        //❌ Code for a delete error goes here
     });
 }
 
